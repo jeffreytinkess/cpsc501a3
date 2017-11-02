@@ -38,21 +38,21 @@ public class ObjCreate{
 				try{ choice = Integer.parseInt(in);}
 				catch(Exception e){System.out.println("Input error, using default input");
 					choice = 1; }
-				if (choice <= 1){ toReturn = new ObjRef();}
+				if (choice <= 1){ toReturn = new ObjRef(this);}
 				else if (ObjCreate.allObjects.size() == 0){
 					System.out.println("No objects created yet, using default");
-					toReturn = new ObjRef();
+					toReturn = new ObjRef(this);
 				} else {
 					//call method to find object from list and pass it in
-					toReturn = new ObjRef(selectExistingObject());
+					toReturn = new ObjRef(ObjCreate.selectExistingObject());
 				}
 				break;
 
 			case 3: toReturn = new PrimArray();
 				break;
-			case 4: toReturn = new ObjArray();
+			case 4: toReturn = new ObjArray(this);
 				break;
-			case 5: toReturn = new ObjCollection();
+			case 5: toReturn = new ObjCollection(this);
 				break;
 
 
@@ -112,7 +112,7 @@ public class ObjCreate{
 
 	}
 */
-	private Object selectExistingObject(){
+	private static Object selectExistingObject(){
 		if (ObjCreate.allObjects.size() == 0){
 			System.out.println("No objects created to be selected");
 			return null;
@@ -166,11 +166,11 @@ public class ObjCreate{
 
 	private class ObjRef{
 		Object myObject;
-		public ObjRef(){
+		public ObjRef(ObjCreate creator){
 			Scanner input = new Scanner(System.in);
 			System.out.printf("%n%n *****Creating new Object Field Object***** %n%n");
 			System.out.println("Creating new default object for reference");
-			myObject = new PrimObj();
+			myObject = creator.userCreate();
 		}
 
 		public ObjRef(Object reference){
@@ -211,17 +211,72 @@ public class ObjCreate{
 			}
 		}
 	};
-	private class ObjArray{};
-	private class ObjCollection{};
+	private class ObjArray{
+		Object[] myObjArray;
+
+		public ObjArray(ObjCreate creator){
+			System.out.println("*****Creating new Object Array Object*****");
+			System.out.println("Enter the number of elements you want the array to have");
+			Scanner input = new Scanner(System.in);
+			String in = input.nextLine();
+			int arraySize = 1;
+			try{
+				arraySize = Integer.parseInt(in);
+				if (arraySize < 0){
+					System.out.println("Size cannot be negative, using default value of 1");
+					arraySize = 1;
+				}
+			} catch (Exception e){
+				System.out.println("Input error, using default value of 1");
+				arraySize = 1;
+			}
+			myObjArray = new Object[arraySize];
+			for(int i = 0; i < arraySize; i++){
+				int choice = 0;
+				try{
+					System.out.println("Please enter 1 to create a new object, 2 to use a new object");
+				in = input.nextLine();
+				choice = Integer.parseInt(in);
+				if (choice == 2){
+					//print all current objects and choose one
+					myObjArray[i] = ObjCreate.selectExistingObject();
+				} else if (choice == 1){
+					myObjArray[i] = creator.userCreate();
+				} else {
+					System.out.println("Please only enter 1 or 2 as input, using default input of 1");
+				}
+				} catch (Exception e){
+					System.out.println("Input error, using default value of 1");
+					myObjArray[i] = creator.userCreate();
+				}
+			}	
+		}
+
+	};
 
 
+	private class ObjCollection{
+		ArrayList<Object> myObjCollection;
+		public ObjCollection(ObjCreate creator){
+			myObjCollection = new ArrayList<Object>();
+			Scanner input = new Scanner(System.in);
+			boolean userContinue = false;
+			while(true){
+				System.out.println("Enter 1 to add a new object, anything else to finish list");
+				String in = input.nextLine();
+				int choice = 0;
+				try{
+					choice = Integer.parseInt(in);
+					if (choice == 1){
+						myObjCollection.add(creator.userCreate());
+					} else {
+						break;
+					}
+				} catch (Exception e){System.out.println("Input error, ending list creation");
+					break;
+				}
+			}	
+		}
 
-
-
-
-
-
-
-
-
+};
 }
