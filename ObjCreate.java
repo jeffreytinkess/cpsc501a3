@@ -60,6 +60,8 @@ public class ObjCreate{
 
 		System.out.println("Finished creating object: " + toReturn.toString());
 		allObjects.add(toReturn);
+		Visualizer display = new Visualizer();
+		display.inspect(toReturn);
 		return toReturn;
 	}
 

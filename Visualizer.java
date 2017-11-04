@@ -16,6 +16,7 @@ public class Visualizer{
 		String targetName = target.toString();
 		for(String s: hasBeenInspected){
 			if (targetName.equals(s)){
+				System.out.println("Found duplicate object");
 				return;
 			}
 		}
@@ -29,7 +30,7 @@ public class Visualizer{
 		}
 		System.out.printf("%n *****Fields*****%n");
 		//print all fields and values, if object print objects name and message that detailed printout found elsewhere: add to list
-		displayFields(targetClass);
+		displayFields(target);
 		//print methods method call
 		displayMethods(targetClass);
 	}
@@ -50,9 +51,12 @@ public class Visualizer{
 				allFields.add(fields[i]);
 			}
 		}
+		System.out.println("DEBUG: found " + fields.length + "fields in object");
+		System.out.println("DEBUG: class being inspected for fields: " + c.getName());
 		//for each, check if its a primitive array or object
 		for (Field f: fields){
-			Class fieldClass = f.getClass();
+			f.setAccessible(true);
+			Class fieldClass = f.getType();
 			if (fieldClass.isPrimitive()){
 				try{
 					System.out.println(f.getName() + " = " + f.get(o).toString());
@@ -78,8 +82,12 @@ public class Visualizer{
 		} catch (IllegalAccessException iae){return;}
 		catch (IllegalArgumentException e){return;};
 		//Print object name
-		System.out.println(fieldValue.toString() + " : See further object inspection for object details");
+		if (fieldValue != null){
+			System.out.println(f.getName() + " = " + fieldValue.toString() + " : See further object inspection for object details");
+		} else {
+			System.out.println(f.getName() + " = null");
 		toBeInspected.add(fieldValue);
+		}
 	}
 
 }
