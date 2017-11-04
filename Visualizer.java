@@ -32,6 +32,7 @@ public class Visualizer{
 		//print all fields and values, if object print objects name and message that detailed printout found elsewhere: add to list
 		displayFields(target);
 		//print methods method call
+		System.out.printf("%n *****Methods*****%n");
 		displayMethods(targetClass);
 
 		System.out.printf("%n%n**********Object Inspection End**********%n%n");
@@ -77,7 +78,36 @@ public class Visualizer{
 			
 		}
 	}
-	private void displayMethods(Class c){}
+	private void displayMethods(Class c){
+		//Get a list of all methods
+		ArrayList<Method> allMethods = new ArrayList<Method>();
+		Method[] declaredMethods = c.getDeclaredMethods();
+		Method[] otherMethods = c.getMethods();
+		for (int i = 0; i < declaredMethods.length; i++){
+			int modifier = declaredMethods[i].getModifiers();
+			if (Modifier.isProtected(modifier) || Modifier.isPrivate(modifier)){
+				allMethods.add(declaredMethods[i]);
+			}
+		}
+		for (int i = 0; i < otherMethods.length; i++){
+			allMethods.add(otherMethods[i]);
+		}
+		//for each method, print: modifiers returnType name (parameter list)
+		for (Method m: allMethods){
+			System.out.print(Modifier.toString(m.getModifiers())+ " ");
+			System.out.printf(m.getReturnType().getName() + " ");
+			System.out.printf(m.getName() + " " );
+			Class[] params = m.getParameterTypes();
+			System.out.printf("( ");
+			for (int i = 0; i < params.length; i++){
+				System.out.printf(params[i].getName() + " ");
+				if (i < params.length-1){
+					System.out.printf(", ");
+				}
+			}
+			System.out.printf(") %n");
+		}
+	}
 	private void displayArrayField(Field f, Object target){
 		Object targetArray = null;
 		try{
@@ -101,6 +131,10 @@ public class Visualizer{
 			//Elements are objects, print object names and add each to inspection list
 			for (int i = 0; i < length; i++){
 				Object element = Array.get(targetArray, i);
+				if (element == null){
+					System.out.println(f.getName() + "[" + i + "] = null");
+					continue;
+				}
 				System.out.println(f.getName() + "[" + i + "] = " + element.toString()+ " : See further object inspection for object details");
 				toBeInspected.add(element);
 			}
