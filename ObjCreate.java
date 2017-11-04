@@ -15,14 +15,19 @@ public class ObjCreate{
 		//Create an instance of this class
 		ObjCreate creator = new ObjCreate();
 		//Call create method
-		creator.userCreate();
+		creator.createStart();
 
 
 
 	}
 
 
-
+	public Object createStart(){
+		Object created = userCreate();
+		Visualizer display = new Visualizer();
+		display.inspect(created);
+		return created;
+	}
 
 	public Object userCreate(){
 		//Display menu information to user
@@ -60,8 +65,6 @@ public class ObjCreate{
 
 		System.out.println("Finished creating object: " + toReturn.toString());
 		allObjects.add(toReturn);
-		Visualizer display = new Visualizer();
-		display.inspect(toReturn);
 		return toReturn;
 	}
 
