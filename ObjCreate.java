@@ -15,8 +15,9 @@ public class ObjCreate{
 		//Create an instance of this class
 		ObjCreate creator = new ObjCreate();
 		//Call create method
-		creator.createStart();
-
+		Object created = creator.createStart();
+		Serializer s = new Serializer();
+		s.serialize(created);
 
 
 	}
@@ -25,7 +26,7 @@ public class ObjCreate{
 	public Object createStart(){
 		Object created = userCreate();
 		Visualizer display = new Visualizer();
-		display.inspect(created);
+		//display.inspect(created);
 		return created;
 	}
 
