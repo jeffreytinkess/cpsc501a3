@@ -26,7 +26,7 @@ public class ObjCreate{
 	public Object createStart(){
 		Object created = userCreate();
 		Visualizer display = new Visualizer();
-		//display.inspect(created);
+		display.inspect(created);
 		return created;
 	}
 
