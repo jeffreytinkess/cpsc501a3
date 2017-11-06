@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<serialized><object class="ObjCreate$PrimObj" id="0"><field name="primitiveFieldInt" declaringclass="ObjCreate$PrimObj"><value>1</value></field><field name="primitiveFieldDouble" declaringclass="ObjCreate$PrimObj"><value>3.14</value></field></object></serialized>
+<serialized><object class="PrimObj" id="0"><field name="primitiveFieldInt" declaringclass="PrimObj"><value>1</value></field><field name="primitiveFieldDouble" declaringclass="PrimObj"><value>3.14</value></field></object></serialized>
