@@ -35,7 +35,8 @@ public class Serializer{
 		}
 
 		sendToFile(doc);
-
+		Deserializer de = new Deserializer();
+		de.deserialize(doc);
 		return doc;
 	}
 
