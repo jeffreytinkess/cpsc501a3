@@ -27,7 +27,7 @@ public class Serializer{
 			if (toBeSerialized.isEmpty()){
 				break;
 			} else {
-				System.out.println("Serializing extra object ");
+				
 				Object o = toBeSerialized.remove(0);
 				Element extraObject = serializeSingleObject(o);
 				root.addContent(extraObject);
@@ -48,6 +48,10 @@ public class Serializer{
 		objectElement.setAttribute("class", obj.getClass().getName());
 		objectElement.setAttribute("id", objectMap.get(obj).toString());
 		
+		if (obj.getClass().isArray()){
+			//call and return value from different method
+			return serializeArray(obj, objectElement);
+		}
 
 		//get list of all fields (same code as visualizer)
 		Field[] someFields = obj.getClass().getDeclaredFields();
@@ -82,9 +86,6 @@ public class Serializer{
 				Text valueText = new Text(fieldValue.toString());
 				value.addContent(valueText);
 				fieldElement.addContent(value);
-			}else if (allFields[i].getType().isArray()){
-				//Field is an array
-				
 			} else {
 				//Field is an object
 				Integer objectID = -1;
@@ -107,6 +108,48 @@ public class Serializer{
 			objectElement.addContent(fieldElement);
 		}
 		return objectElement;
+	}
+
+	private Element serializeArray(Object obj, Element e){
+		//Base element of array has already been created, add unique attributes and add values then return e
+		int length = Array.getLength(obj);
+		e.setAttribute("length", "" + length);
+		if (length == 0){
+			return e;
+		}
+		Class arrayType = obj.getClass().getComponentType();
+		
+		if (arrayType.isPrimitive()){
+			//Array of primitives, wrap each into a value and add to element
+			for (int i = 0; i < length; i++){
+				Element value = new Element("value");
+				Text valueText = new Text(Array.get(obj, i).toString());
+				value.addContent(valueText);
+				e.addContent(value);
+				
+			}
+		} else {
+			//Array is of object references, for each check if it has been serialized and handle
+			for (int i = 0; i < length; i++){
+				Element reference = new Element("reference");
+				Object arrayElement = Array.get(obj, i);
+				Integer objectID = -1;
+				if (objectMap.containsKey(arrayElement)){
+					objectID = objectMap.get(arrayElement);
+				} else {
+					objectID = nextID;
+					objectMap.put(arrayElement, objectID);
+					toBeSerialized.add(arrayElement);
+					nextID++;
+				}
+				Text referenceText = new Text(objectID.toString());
+				reference.addContent(referenceText);
+				e.addContent(reference);
+			}
+		}
+
+
+		return e;
 	}
 
 	private void sendToFile(Document doc){
