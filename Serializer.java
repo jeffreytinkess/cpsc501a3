@@ -4,45 +4,35 @@ import org.jdom2.output.*;
 import java.util.*;
 import java.lang.reflect.*;
 public class Serializer{
-	private IdentityHashMap<Integer, Object> objectMap;
+	private IdentityHashMap<Object, Integer> objectMap;
 	private Integer nextID;
 	private ArrayList<Object> toBeSerialized;
 
-
-
-	public static void main(String[] args){
-		Serializer testing = new Serializer();
-		testing.serialize(new String("hello world"));
-
-	}
-
 	public Serializer(){
-		objectMap = new IdentityHashMap<Integer, Object>();
+		objectMap = new IdentityHashMap<Object, Integer>();
 		nextID = 0;
 		toBeSerialized = new ArrayList<Object>();
 	}
 	public org.jdom2.Document serialize(Object obj){
 
-		/*
-		basic creation
-		Element root = new Element("serialized");
-		Document myDoc = new Document(root);
-		Element obj1 = new Element("object");
-		root.addContent(obj1);
-		obj1.setAttribute("class", obj.getClass().getName());
-		obj1.setAttribute("id", "3");
-		Element field1 = new Element("fieldName");
-		field1.setAttribute("name", "myFieldName");
-		field1.setAttribute("declaringclass", "Object");
-		obj1.addContent(field1);
-		*/
-
+			
 		Element root = new Element("serialized");
 		Document doc = new Document(root);
+		objectMap.put(obj, nextID);
+		nextID++;
 		Element toAdd = serializeSingleObject(obj);
 		root.addContent(toAdd);
 
-
+		while(true){
+			if (toBeSerialized.isEmpty()){
+				break;
+			} else {
+				System.out.println("Serializing extra object ");
+				Object o = toBeSerialized.remove(0);
+				Element extraObject = serializeSingleObject(o);
+				root.addContent(extraObject);
+			}
+		}
 
 		sendToFile(doc);
 
@@ -56,18 +46,25 @@ public class Serializer{
 		//Create objects root element, add its attributes and add to map
 		Element objectElement = new Element("object");
 		objectElement.setAttribute("class", obj.getClass().getName());
-		objectElement.setAttribute("id", nextID.toString());
-		objectMap.put(nextID, obj);
-		nextID++;
+		objectElement.setAttribute("id", objectMap.get(obj).toString());
+		
 
 		//get list of all fields (same code as visualizer)
-		Field[] allFields = obj.getClass().getDeclaredFields();
-
+		Field[] someFields = obj.getClass().getDeclaredFields();
+		Field[] someMoreFields = obj.getClass().getFields();
+		
+		Field[] allFields =  new Field[someFields.length + someMoreFields.length];
+		
+		for (int i = 0; i < someFields.length; i++){
+				allFields[i] = someFields[i];
+		}
+		for (int i = 0; i < someMoreFields.length; i++){
+			allFields[i+someFields.length] = someMoreFields[i];
+		}
 		//for each field, create a new element
 		for (int i = 0; i < allFields.length; i++){
 			//Ignore the "this" field
 			if (allFields[i].getName().equals("this$0")){continue;};
-
 			Element fieldElement = new Element("field");
 			fieldElement.setAttribute("name", allFields[i].getName());
 			fieldElement.setAttribute("declaringclass", obj.getClass().getName());
@@ -77,26 +74,36 @@ public class Serializer{
 				fieldValue = allFields[i].get(obj);
 			} catch (Exception e){e.printStackTrace();};
 			if (fieldValue == null){ continue;}
+			
+
 
 			if (allFields[i].getType().isPrimitive()){//If the field is primitive, add it as raw text
 				Element value = new Element("value");
 				Text valueText = new Text(fieldValue.toString());
 				value.addContent(valueText);
 				fieldElement.addContent(value);
-			}else if (allFields[i].getType().isPrimitive()){//If the field is an object, add new object to map and list then put its ID here
-				Element value = new Element("reference");
-				//check if object in map yet
-				boolean inMap = objectMap.containsValue(fieldValue);
-				//if yes, get its ID and store that here
-				if(inMap){
-
+			}else if (allFields[i].getType().isArray()){
+				//Field is an array
+				
+			} else {
+				//Field is an object
+				Integer objectID = -1;
+				//check if object is already in map
+				if (objectMap.containsKey(fieldValue)){
+					//Object has been serialized, get its ID and use that
+					objectID = objectMap.get(fieldValue);
 				} else {
-				//if no, generate new ID (and store it in xml), add to map and tobeinspected
+					//add object to map and list
+					objectID = nextID;
+					objectMap.put(fieldValue, nextID);
+					toBeSerialized.add(fieldValue);
+					nextID++;
 				}
+				Element reference = new Element("reference");
+				Text valueText = new Text(objectID.toString());
+				reference.addContent(valueText);
+				fieldElement.addContent(reference);
 			}
-
-
-
 			objectElement.addContent(fieldElement);
 		}
 		return objectElement;
