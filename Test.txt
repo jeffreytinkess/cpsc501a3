@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<serialized><object class="PrimArray" id="0"><field name="myPrimArray" declaringclass="PrimArray"><reference>1</reference></field></object><object class="[I" id="1" length="1"><value>-1</value></object></serialized>
+<serialized><object class="PrimArray" id="0"><field name="myPrimArray" declaringclass="PrimArray"><reference>1</reference></field></object><object class="[I" id="1" length="2"><value>1</value><value>2</value></object></serialized>

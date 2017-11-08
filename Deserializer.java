@@ -45,6 +45,7 @@ public class Deserializer{
 			char firstLetterOfName = className.charAt(0);
 			if (firstLetterOfName == '['){
 				//Object is an array, call array handling method
+				createArray(objectElement, className, myClass);
 			} else {
 				//Create a new instance of this object, then add it to map with its ID
 				try{
@@ -59,11 +60,25 @@ public class Deserializer{
 
 		//Map now contains instantiated objects for each serialized object, need to set all fields properly
 
-
-
+		toReturn = objectMap.get(0);
+		System.out.println("DEBUG: init finished for" + toReturn.toString());
 
 		return toReturn;
 	}
+
+	private void createArray(Element arrayElement, String arrayName, Class arrayClass){
+		System.out.println("Trying to instantiate array, name is " + arrayName);
+		Class componentType = arrayClass.getComponentType();
+		int length = -1;
+		String lengthAttribute = arrayElement.getAttributeValue("length");
+		length = Integer.parseInt(lengthAttribute);
+		Object newArray = Array.newInstance(componentType, length);
+		Integer arrayID = Integer.parseInt(arrayElement.getAttributeValue("id"));
+		objectMap.put(arrayID, newArray);
+		toBeHandled.add(newArray);
+		
+	}
+	
 
 	
 

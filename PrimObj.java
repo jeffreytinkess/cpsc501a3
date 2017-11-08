@@ -3,7 +3,10 @@ import java.util.*;
 public class PrimObj{
   int primitiveFieldInt;
   double primitiveFieldDouble;
-  public PrimObj(){
+ 
+  public PrimObj(){}
+
+  public PrimObj(boolean isCreator){
     Scanner input = new Scanner(System.in);
     System.out.printf("%n%n *****Creating new Primitive Fields Object***** %n%n");
     System.out.println("Enter integer value for first field");

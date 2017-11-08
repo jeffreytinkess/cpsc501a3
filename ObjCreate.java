@@ -35,7 +35,7 @@ public class ObjCreate{
 		int userChoice = displayMenu();
 		Object toReturn = null;
 		switch (userChoice) {
-			case 1: toReturn = new PrimObj();
+			case 1: toReturn = new PrimObj(true);
 				break;
 
 			case 2: System.out.println("Enter 1 to create default object, Enter 2 to use existing object for reference");
