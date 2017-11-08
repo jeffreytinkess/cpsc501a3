@@ -59,12 +59,39 @@ public class Deserializer{
 		}
 
 		//Map now contains instantiated objects for each serialized object, need to set all fields properly
-
+		while(true){
+			if (toBeHandled.isEmpty()){
+				break;
+			} else {
+				Element objectElement = (Element)allObjects.remove(0);
+				String className = objectElement.getAttributeValue("class");
+				char firstLetter = className.charAt(0);
+				if (firstLetter == '['){
+					//handle as array
+					setArrayElements(objectElement);
+				} else {
+					//handle as normal object
+					setFields(objectElement);
+				}
+			}
+		}
+		
+		
+		
 		toReturn = objectMap.get(0);
 		System.out.println("DEBUG: init finished for" + toReturn.toString());
 
 		return toReturn;
 	}
+
+	private void setFields(Element objectElement){
+		//Get reference to empty object already created
+		int objectID = Integer.parseInt(objectElement.getAttributeValue("id"));
+		Object obj = objectMap.get(objectID);
+	}
+
+	private void setArrayElements(Element arrayElement){}
+
 
 	private void createArray(Element arrayElement, String arrayName, Class arrayClass){
 		System.out.println("Trying to instantiate array, name is " + arrayName);

@@ -54,7 +54,7 @@ public class ObjCreate{
 				}
 				break;
 
-			case 3: toReturn = new PrimArray();
+			case 3: toReturn = new PrimArray(true);
 				break;
 			case 4: toReturn = new ObjArray(this);
 				break;

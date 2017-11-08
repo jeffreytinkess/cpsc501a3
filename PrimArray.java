@@ -2,8 +2,8 @@ import java.util.Scanner;
 import java.util.*;
 public class PrimArray{
   int[] myPrimArray;
-
-  public PrimArray(){
+  public PrimArray(){}
+  public PrimArray(boolean isCreator){
     System.out.printf("%n%n*****Creating new Primitive Array Object*****%n%n");
     System.out.println("Enter the number of elements you want the array to have");
     Scanner input = new Scanner(System.in);

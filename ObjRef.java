@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.*;
 public class ObjRef{
   Object myObject;
+  public ObjRef(){}
+
   public ObjRef(ObjCreate creator){
     Scanner input = new Scanner(System.in);
     System.out.printf("%n%n *****Creating new Object Field Object***** %n%n");

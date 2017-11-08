@@ -1,7 +1,11 @@
 import java.util.Scanner;
 import java.util.*;
+
 	public class ObjCollection{
 		ArrayList<Object> myObjCollection;
+
+		public ObjCollection(){}
+
 		public ObjCollection(ObjCreate creator){
 			myObjCollection = new ArrayList<Object>();
 			Scanner input = new Scanner(System.in);

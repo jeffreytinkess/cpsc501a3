@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.*;
 public class ObjArray{
   Object[] myObjArray;
-
+  public ObjArray(){}
   public ObjArray(ObjCreate creator){
     System.out.println("*****Creating new Object Array Object*****");
     System.out.println("Enter the number of elements you want the array to have");
