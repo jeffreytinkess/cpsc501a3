@@ -3,6 +3,7 @@ import java.io.*;
 import org.jdom2.output.*;
 import java.util.*;
 import java.lang.reflect.*;
+
 public class Serializer{
 	private IdentityHashMap<Object, Integer> objectMap;
 	private Integer nextID;
@@ -15,7 +16,7 @@ public class Serializer{
 	}
 	public org.jdom2.Document serialize(Object obj){
 
-			
+
 		Element root = new Element("serialized");
 		Document doc = new Document(root);
 		objectMap.put(obj, nextID);
@@ -27,7 +28,7 @@ public class Serializer{
 			if (toBeSerialized.isEmpty()){
 				break;
 			} else {
-				
+
 				Object o = toBeSerialized.remove(0);
 				Element extraObject = serializeSingleObject(o);
 				root.addContent(extraObject);
@@ -48,7 +49,7 @@ public class Serializer{
 		Element objectElement = new Element("object");
 		objectElement.setAttribute("class", obj.getClass().getName());
 		objectElement.setAttribute("id", objectMap.get(obj).toString());
-		
+
 		if (obj.getClass().isArray()){
 			//call and return value from different method
 			return serializeArray(obj, objectElement);
@@ -57,9 +58,9 @@ public class Serializer{
 		//get list of all fields (same code as visualizer)
 		Field[] someFields = obj.getClass().getDeclaredFields();
 		Field[] someMoreFields = obj.getClass().getFields();
-		
+
 		Field[] allFields =  new Field[someFields.length + someMoreFields.length];
-		
+
 		for (int i = 0; i < someFields.length; i++){
 				allFields[i] = someFields[i];
 		}
@@ -79,7 +80,7 @@ public class Serializer{
 				fieldValue = allFields[i].get(obj);
 			} catch (Exception e){e.printStackTrace();};
 			if (fieldValue == null){ continue;}
-			
+
 
 
 			if (allFields[i].getType().isPrimitive()){//If the field is primitive, add it as raw text
@@ -127,7 +128,7 @@ public class Serializer{
 				Text valueText = new Text(Array.get(obj, i).toString());
 				value.addContent(valueText);
 				e.addContent(value);
-				
+
 			}
 		} else {
 			//Array is of object references, for each check if it has been serialized and handle
