@@ -37,7 +37,7 @@ public class Serializer{
 			}
 		}
 
-		sendToSocket(doc);
+		//sendToSocket(doc);
 		//Deserializer de = new Deserializer();
 		//de.deserialize(doc);
 		return doc;
@@ -167,7 +167,7 @@ public class Serializer{
 
 	};
 
-	private void sendToSocket(Document doc){
+	public void sendToSocket(Document doc){
 		XMLOutputter out = new XMLOutputter();
 		
 		try{

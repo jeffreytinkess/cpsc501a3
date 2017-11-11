@@ -7,7 +7,12 @@ import java.io.*;
 import java.net.Socket;
 public class Deserializer{
 	private IdentityHashMap<Integer, Object> objectMap;
-	
+
+
+	public static void main(String[] args){
+		Deserializer d = new Deserializer();
+		d.setupSocket();
+	}	
 	
 	public Deserializer(){
 		
@@ -77,9 +82,7 @@ public class Deserializer{
 		}
 		
 		
-		//DEBUG
-		Visualizer v = new Visualizer();
-		v.inspect(objectMap.get(0));
+		
 		toReturn = objectMap.get(0);
 		return toReturn;
 	}
@@ -141,7 +144,7 @@ public class Deserializer{
 			try{
 			f = obj.getClass().getDeclaredField(fieldName);
 			type = f.getType();
-			System.out.println("fields type is " + type.toString());
+			
 			} catch (Exception e){System.out.println("Error setting field value");
 			e.printStackTrace();
 			return;};
@@ -149,7 +152,7 @@ public class Deserializer{
 			Object parsedValue = parsePrimitive(fieldValue, type);
 			try{
 				f.set(obj, parsedValue);
-				System.out.println("Successfully set value of obj " + obj.toString() + " to value " + parsedValue.toString());
+				
 			}catch (Exception e){};
 			
 		}
@@ -236,6 +239,9 @@ public class Deserializer{
 		SAXBuilder builder = new SAXBuilder();
 		Document docIn = builder.build(streamIn);
 		System.out.println("it worked, doc built");
+		Object recreated = deserialize(docIn);
+		Visualizer display = new Visualizer();
+		display.inspect(recreated);
 		} catch (Exception e){
 			e.printStackTrace();
 		};

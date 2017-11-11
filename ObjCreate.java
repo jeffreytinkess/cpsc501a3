@@ -12,23 +12,21 @@ public class ObjCreate{
 
 
 	public static void main(String[] args){
-		//Create an instance of this class
+		boolean bypassSocket = true;
 		ObjCreate creator = new ObjCreate();
-		//Call create method
-		Object created = creator.createStart();
+		Object created = creator.userCreate();
 		Serializer s = new Serializer();
-		s.serialize(created);
-
-
+		if (!bypassSocket){
+			s.sendToSocket(s.serialize(created));
+		} else {
+			Deserializer d = new Deserializer();
+			Object recreated = d.deserialize(s.serialize(created));
+			Visualizer display = new Visualizer();
+			display.inspect(recreated);
+		}
 	}
 
 
-	public Object createStart(){
-		Object created = userCreate();
-		Visualizer display = new Visualizer();
-		//display.inspect(created);
-		return created;
-	}
 
 	public Object userCreate(){
 		//Display menu information to user
@@ -64,7 +62,7 @@ public class ObjCreate{
 
 		};
 
-		System.out.println("Finished creating object: " + toReturn.toString());
+		//System.out.println("Finished creating object: " + toReturn.toString());
 		allObjects.add(toReturn);
 		return toReturn;
 	}
@@ -120,16 +118,4 @@ public class ObjCreate{
 		}
 		return ObjCreate.allObjects.get(choice);
 	}
-
-
-
-	//List of class definitions that can be created/modified
-
-
-
-
-
-
-
-
 }
