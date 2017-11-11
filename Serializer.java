@@ -72,8 +72,11 @@ public class Serializer{
 		//for each field, create a new element
 		for (int i = 0; i < allFields.length; i++){
 			//Ignore the "this" field
+			
 			if (allFields[i].getName().equals("this$0")){continue;};
+			allFields[i].setAccessible(true);
 			Element fieldElement = new Element("field");
+			
 			fieldElement.setAttribute("name", allFields[i].getName());
 			fieldElement.setAttribute("declaringclass", obj.getClass().getName());
 			//handle primitive/object fields seperatley
@@ -83,8 +86,7 @@ public class Serializer{
 			} catch (Exception e){e.printStackTrace();};
 			if (fieldValue == null){ continue;}
 
-
-
+				
 			if (allFields[i].getType().isPrimitive()){//If the field is primitive, add it as raw text
 				Element value = new Element("value");
 				Text valueText = new Text(fieldValue.toString());
@@ -109,6 +111,7 @@ public class Serializer{
 				reference.addContent(valueText);
 				fieldElement.addContent(reference);
 			}
+			
 			objectElement.addContent(fieldElement);
 		}
 		return objectElement;
@@ -116,6 +119,7 @@ public class Serializer{
 
 	private Element serializeArray(Object obj, Element e){
 		//Base element of array has already been created, add unique attributes and add values then return e
+		if (obj == null){return null;};
 		int length = Array.getLength(obj);
 		e.setAttribute("length", "" + length);
 		if (length == 0){

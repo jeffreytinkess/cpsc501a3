@@ -7,7 +7,7 @@ import java.util.*;
 		public ObjCollection(){}
 
 		public ObjCollection(ObjCreate creator){
-			myObjCollection = new ArrayList<Object>();
+			myObjCollection = new ArrayList<Object>(0);
 			Scanner input = new Scanner(System.in);
 			boolean userContinue = false;
 			while(true){

@@ -1,0 +1,8 @@
+Refactoring #1
+I used Extract Class to remove the "example object" classes from ObjCreate. I initially had them as nested objects to keep everything compact, however it caused drastic bloat to the size of ObjCreate as well as issues with XML parsing/
+
+Refactoring #2
+I used Extract Method to pull the code required to set a single fields values in Deserializer into a seperate method. The original method was far too long to be easily readable.
+
+Refactoring #3
+I extracted several methods related to program flow. The initial design had program flow controlled in a somewhat ad-hoc way, with major methods in each of the 4 main classes calling each other directly. I extracted functionality that was required by other classes (for example, setup socket) and consolidated program flow into a pair of main methods (one in ObjCreate, one in Deserializer)

@@ -218,7 +218,7 @@ public class Deserializer{
 
 
 	private void createArray(Element arrayElement, String arrayName, Class arrayClass){
-		System.out.println("Trying to instantiate array, name is " + arrayName);
+		
 		Class componentType = arrayClass.getComponentType();
 		int length = -1;
 		String lengthAttribute = arrayElement.getAttributeValue("length");

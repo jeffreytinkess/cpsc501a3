@@ -1,0 +1,119 @@
+commit 856983a1f02fe6e25b4cddcc17c53cb43d606c67
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Fri Nov 10 19:21:43 2017 -0700
+
+    changed program flow to allow socket bypass/use from main method
+
+commit 042f2dac9f6d92ae8ad81f24ca5c489879f686ed
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Fri Nov 10 18:57:52 2017 -0700
+
+    basic socket setup in place, need to refactor execution path
+
+commit 1f82f4dc47278567d8812b774d2cdc742d0036f0
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Fri Nov 10 18:28:17 2017 -0700
+
+    array deserialization added
+
+commit b367b3998acb6c718098918b135b70fead1d47ae
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Fri Nov 10 12:25:17 2017 -0700
+
+    refactored setting single field into seperate method to assist array setting
+
+commit 38a1cb628f9641a795a5f0e72905277bda58e9f8
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Fri Nov 10 11:19:47 2017 -0700
+
+    Set non-array fields added
+
+commit 37575f3d483ed832ee882a023d73175f47967089
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Tue Nov 7 18:12:52 2017 -0700
+
+    fixed sample object constructors and started field assignment
+
+commit 661c6734e55170818ce308785611d2b841ee0d14
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Tue Nov 7 17:48:59 2017 -0700
+
+    deserializer now initializes arrays (empty)
+
+commit 2b9f77e569359608cf7eb44720f859fc4fabbfd5
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Tue Nov 7 16:06:48 2017 -0700
+
+    Deserializer objects instantiated without fields
+
+commit 8c823aa8328a101da0d505cf0be83e2a421ab0d8
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Tue Nov 7 14:32:09 2017 -0700
+
+    added array support to serializer
+
+commit 1d886c28bff961b008fc356d70c393d4b33faef3
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Tue Nov 7 12:45:30 2017 -0700
+
+    added nested object serialization
+
+commit b502e3a65b4415177e3932d3bb35300ac26a959f
+Author: jeffrey.tinkess <jeffrey.tinkess@zone47-wc.cs.ucalgary.ca>
+Date:   Mon Nov 6 12:07:05 2017 -0700
+
+    Finished moving objects from internal class to external class
+
+commit 09d3a8eec0807e65a21a95ac4829e6c07f7d0931
+Author: jeffrey.tinkess <jeffrey.tinkess@zone47-wc.cs.ucalgary.ca>
+Date:   Mon Nov 6 11:52:33 2017 -0700
+
+    begin seperating objects from ObjCreate
+
+commit 2e6fa1c18325efc817f44285b13fa43b7190f2db
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Sun Nov 5 10:48:33 2017 -0700
+
+    serializer primitives and document initialization
+
+commit aaf914104e1cb83f3577c3a0625406d64f64774b
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Sat Nov 4 14:08:42 2017 -0600
+
+    visualizer method displaying finished
+
+commit 67a9f030a48d749b2d937b6f8129eeac45c3d706
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Sat Nov 4 12:30:12 2017 -0600
+
+    fixed bug related to inspecting this field
+
+commit 565e47f8c9daa0c89c71a7577c24ea7bade2462e
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Sat Nov 4 10:34:46 2017 -0600
+
+    fixed bug from visualizer test
+
+commit 8f9649dbc6e550234eae42e358e5572738cb8abd
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Sat Nov 4 10:01:41 2017 -0600
+
+    First half of visualizer functionality
+
+commit 6ec99ab9805551bdf51a4979cca8e53cba0c9c04
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Wed Nov 1 21:22:39 2017 -0600
+
+    added last two object creation methods
+
+commit 747e5709b36c15a7f5e1f8dcd3fb09ae865bfe06
+Author: jeffrey.tinkess <jeffrey.tinkess@zone46-wd.cs.ucalgary.ca>
+Date:   Tue Oct 31 14:49:14 2017 -0600
+
+    Added first three created objects
+
+commit 66961591fcd3601569aee950e60603ac72fa0117
+Author: jeffrey.tinkess <jeffrey.tinkess@csx.cs.ucalgary.ca>
+Date:   Mon Oct 30 10:50:07 2017 -0600
+
+    Initial commit, Empty class structure
