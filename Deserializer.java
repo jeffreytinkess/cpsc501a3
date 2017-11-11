@@ -189,7 +189,26 @@ public class Deserializer{
 	}
 	private void setArrayElements(Element arrayElement){
 		int length = Integer.parseInt(arrayElement.getAttributeValue("length"));
-		
+		int arrayID = Integer.parseInt(arrayElement.getAttributeValue("id"));
+		Object arrayObject = objectMap.get(arrayID);
+		Class elementType = arrayObject.getClass().getComponentType();
+		for (int i = 0; i < length; i++){
+			Element arrayEntry = (Element) arrayElement.getContent(i);
+			String elementName = arrayEntry.getName();
+			if (elementName.equals("value")){
+				//Primitive array
+				Text valueText =(Text) arrayEntry.getContent(0);
+				String toBeParsed = valueText.getText();
+				Object value = parsePrimitive(toBeParsed, elementType);
+				Array.set(arrayObject, i, value);
+			} else {
+				//Object array
+				Text idText = (Text) arrayEntry.getContent(0);
+				int id = Integer.parseInt(idText.getText());
+				Object reference = objectMap.get(id);
+				Array.set(arrayObject, i, reference);
+			}
+		}
 	}
 
 
