@@ -1,8 +1,10 @@
 import org.jdom2.*;
 import java.util.*;
 import java.lang.reflect.*;
-
-
+import org.jdom2.input.*;
+import java.net.ServerSocket;
+import java.io.*;
+import java.net.Socket;
 public class Deserializer{
 	private IdentityHashMap<Integer, Object> objectMap;
 	
@@ -223,6 +225,20 @@ public class Deserializer{
 		objectMap.put(arrayID, newArray);
 		
 		
+	}
+
+	public void setupSocket(){
+		try{
+		ServerSocket socketIn = new ServerSocket(6789);
+		Socket socket = socketIn.accept();
+		InputStreamReader streamIn =new InputStreamReader(socket.getInputStream());
+
+		SAXBuilder builder = new SAXBuilder();
+		Document docIn = builder.build(streamIn);
+		System.out.println("it worked, doc built");
+		} catch (Exception e){
+			e.printStackTrace();
+		};
 	}
 	
 

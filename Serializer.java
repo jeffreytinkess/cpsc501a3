@@ -3,6 +3,8 @@ import java.io.*;
 import org.jdom2.output.*;
 import java.util.*;
 import java.lang.reflect.*;
+import java.net.Socket;
+
 
 public class Serializer{
 	private IdentityHashMap<Object, Integer> objectMap;
@@ -35,9 +37,9 @@ public class Serializer{
 			}
 		}
 
-		sendToFile(doc);
-		Deserializer de = new Deserializer();
-		de.deserialize(doc);
+		sendToSocket(doc);
+		//Deserializer de = new Deserializer();
+		//de.deserialize(doc);
 		return doc;
 	}
 
@@ -164,6 +166,21 @@ public class Serializer{
 		} catch (Exception e){};
 
 	};
+
+	private void sendToSocket(Document doc){
+		XMLOutputter out = new XMLOutputter();
+		
+		try{
+			Socket socketOut = new Socket("localhost", 6789);
+			PrintWriter output = new PrintWriter(new DataOutputStream(socketOut.getOutputStream()));
+			out.output(doc, output);
+			output.close();
+			System.out.println("it worked");
+		} catch (Exception e){
+			e.printStackTrace();
+		};
+		
+	}
 
 
 }
