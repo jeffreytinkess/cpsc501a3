@@ -2,7 +2,11 @@ import java.util.Scanner;
 import java.util.*;
 public class PrimArray{
   int[] myPrimArray;
-  public PrimArray(){}
+  public PrimArray(){myPrimArray = new int[5];
+	for (int i = 0; i < 5; i++){
+		myPrimArray[i] = i;
+	}
+}
   public PrimArray(boolean isCreator){
     System.out.printf("%n%n*****Creating new Primitive Array Object*****%n%n");
     System.out.println("Enter the number of elements you want the array to have");
@@ -31,5 +35,9 @@ public class PrimArray{
         myPrimArray[i] = -1;
       }
     }
+  }
+
+  public int[] getArray(){
+	return myPrimArray;
   }
 };

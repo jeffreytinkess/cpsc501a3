@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.*;
 public class ObjRef{
   Object myObject;
-  public ObjRef(){}
+  public ObjRef(){myObject = new PrimObj();}
 
   public ObjRef(ObjCreate creator){
     Scanner input = new Scanner(System.in);
@@ -14,5 +14,8 @@ public class ObjRef{
   public ObjRef(Object reference){
     System.out.printf("%n%n *****Creating new Object Field Object with pre-created reference%n%n");
     myObject = reference;
+  }
+  public Object getRef(){
+	return myObject;
   }
 }

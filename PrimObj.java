@@ -4,7 +4,10 @@ public class PrimObj{
   int primitiveFieldInt;
   double primitiveFieldDouble;
  
-  public PrimObj(){}
+  public PrimObj(){
+  primitiveFieldInt = 1;
+  primitiveFieldDouble = 3.14;
+  }
 
   public PrimObj(boolean isCreator){
     Scanner input = new Scanner(System.in);
@@ -21,5 +24,12 @@ public class PrimObj{
       primitiveFieldInt = 1;
       primitiveFieldDouble = 3.14;
     }
+  }
+
+  public int getInt(){
+  return primitiveFieldInt;
+  }
+  public double getDouble(){
+  return primitiveFieldDouble;
   }
 }
